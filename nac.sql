@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Hôte : localhost:3306
--- Généré le : sam. 23 nov. 2024 à 22:48
--- Version du serveur : 10.5.26-MariaDB-0+deb11u2
--- Version de PHP : 8.3.12
+-- Hôte : localhost
+-- Généré le : dim. 24 nov. 2024 à 10:53
+-- Version du serveur : 10.4.32-MariaDB
+-- Version de PHP : 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `uvkzuw_nacmemor_db`
+-- Base de données : `nac`
 --
 
 -- --------------------------------------------------------
@@ -144,7 +144,8 @@ INSERT INTO `comments` (`id`, `content`, `user_id`, `item_id`, `status`, `create
 (63, 'dsdfsdf', 1, 31, '1', '2024-11-23 00:06:13', '2024-11-23 00:06:24'),
 (64, 'gdgdsfg', 1, 44, '1', '2024-11-23 00:54:49', '2024-11-23 12:11:34'),
 (65, 'Test Fromsss', 1, 29, '1', '2024-11-23 19:52:39', '2024-11-23 19:52:59'),
-(66, 'test6', 1, 29, '1', '2024-11-23 19:54:41', '2024-11-23 19:54:50');
+(66, 'test6', 1, 29, '1', '2024-11-23 19:54:41', '2024-11-23 19:54:50'),
+(67, 'qsqsdqsdqsdqs', 1, 49, '0', '2024-11-24 08:52:17', '2024-11-24 08:52:17');
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,12 @@ INSERT INTO `details` (`id`, `sex`, `birth_date`, `death_date`, `funeral_date`, 
 (38, 'male', '2024-11-21', '2024-11-30', NULL, 'Paris', 38, '2024-11-20 19:28:22', '2024-11-20 19:28:22'),
 (43, 'male', '2024-11-20', '2024-11-30', NULL, 'Paris', 43, '2024-11-21 04:14:06', '2024-11-21 04:14:06'),
 (44, 'male', '2024-11-20', '2024-11-21', NULL, 'Paris', 44, '2024-11-21 04:26:26', '2024-11-21 06:52:34'),
-(46, 'male', '2024-11-23', '2024-11-23', NULL, 'Test', 46, '2024-11-23 12:51:59', '2024-11-23 12:51:59');
+(46, 'male', '2024-11-23', '2024-11-23', NULL, 'Test', 46, '2024-11-23 12:51:59', '2024-11-23 12:51:59'),
+(47, 'male', '2024-11-24', '2024-11-25', NULL, 'WqsxqsSQ', 47, '2024-11-24 06:04:48', '2024-11-24 06:04:48'),
+(48, 'male', '2024-11-24', '2024-11-29', NULL, 'QsxqsqS', 48, '2024-11-24 06:34:37', '2024-11-24 06:34:37'),
+(49, 'male', '2024-11-24', '2024-11-26', NULL, 'Azeaze', 49, '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(50, 'male', '2024-11-25', '2024-11-26', NULL, 'Sdsdqsdsqdqsdqs', 50, '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(51, 'male', '2024-11-24', '2024-11-28', NULL, 'Qsdqsdqs', 51, '2024-11-24 07:44:49', '2024-11-24 07:44:49');
 
 -- --------------------------------------------------------
 
@@ -356,7 +362,12 @@ INSERT INTO `images` (`id`, `filename`, `imageable_id`, `imageable_type`, `creat
 (67, 'UEQCfjF8W5dbl06q8Ie25n71OrBTJNjHXsQ.jpg', 24, 'App\\Models\\Admin\\Blog\\Post', '2024-11-23 19:15:44', '2024-11-23 18:47:34'),
 (68, 'hYVCNrw3XGm7WO07kOIiMiEqQY2VaxX7DyZ.jpg', 25, 'App\\Models\\Admin\\Blog\\Post', '2024-11-23 19:37:39', '2024-11-23 19:37:39'),
 (69, '44q2iRA0tSbbFcBEBxXhXe4vNVoyBRIHdF7.png', 46, 'App\\Models\\Item', '2024-11-23 12:51:59', '2024-11-23 12:51:59'),
-(70, '2Xh4xhuyWLLP4PvL73rSJVZe5RHvkBhrbmF.jpg', 26, 'App\\Models\\Admin\\Blog\\Post', '2024-11-23 18:45:41', '2024-11-23 18:45:53');
+(70, '2Xh4xhuyWLLP4PvL73rSJVZe5RHvkBhrbmF.jpg', 26, 'App\\Models\\Admin\\Blog\\Post', '2024-11-23 18:45:41', '2024-11-23 18:45:53'),
+(74, '7yMeZrpgtyIZXkv42DciUCsxL33jROuImxs.jpg', 47, 'App\\Models\\Item', '2024-11-24 06:32:01', '2024-11-24 06:32:01'),
+(77, 'DvdHdxvduyTr0KplIsYH8BJ9bPNU63ddfT3.jpg', 48, 'App\\Models\\Item', '2024-11-24 06:44:54', '2024-11-24 06:44:54'),
+(78, 'Z4hfCGINg2tNs3q0QXBKuhKAnDRIU3T0ISA.jpg', 49, 'App\\Models\\Item', '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(79, 'e21SJ7wi9g7GRfsLC9uFKVZUiUxA5EvBI2h.jpg', 50, 'App\\Models\\Item', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(80, 'xYc5DvC8p1HLIRyXPBRME9BHHK5fYDqDQm8.jpg', 51, 'App\\Models\\Item', '2024-11-24 07:44:49', '2024-11-24 07:44:49');
 
 -- --------------------------------------------------------
 
@@ -391,7 +402,12 @@ INSERT INTO `items` (`id`, `title`, `description`, `user_id`, `category_id`, `sl
 (38, 'safdsfsdfsdfasdfsdfas', '<p>safdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfassafdsfsdfsdfasdfsdfas</p>', 31, 2, 'safdsfsdfsdfasdfsdfas', '1', '1', '2024-11-20 19:28:22', '2024-11-21 00:32:02'),
 (43, 'Test safsd;fsdaf', '<p>Test safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdafTest safsd;fsdaf</p>', 36, 4, 'test-safsd-fsdaf', '1', '1', '2024-11-21 04:14:06', '2024-11-23 11:07:40'),
 (44, 'test 1werwer', '<p>test 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwertest 1werwerdsf</p>', 1, 2, 'test-1werwer', '0', '1', '2024-11-21 04:26:26', '2024-11-23 14:10:07'),
-(46, 'Test', '<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>', 1, 2, 'test', '0', '1', '2024-11-23 12:51:59', '2024-11-23 12:51:59');
+(46, 'Test', '<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>\n<p>test</p>', 1, 2, 'test', '0', '1', '2024-11-23 12:51:59', '2024-11-23 12:51:59'),
+(47, 'Sqsqsdqsqdqsdqsdqsqdsd', '<p>sqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsdsqsqsdqsqdqsdqsdqsqdsd</p>', 1, 1, 'sqsqsdqsqdqsdqsdqsqdsd', '0', '1', '2024-11-24 06:04:48', '2024-11-24 06:31:53'),
+(48, 'Yoyoyoyo', '<p>yoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyoyo</p>', 1, 1, 'yoyoyoyo', '0', '1', '2024-11-24 06:34:37', '2024-11-24 06:34:37'),
+(49, 'Qsdqsdqsdqsdqs', '<p>qsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqsqsdqsdqsdqsdqs</p>', 1, 4, 'qsdqsdqsdqsdqs', '1', '1', '2024-11-24 06:58:59', '2024-11-24 06:59:48'),
+(50, 'Wxwsxcwssqqsqsd', '<p>wxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsdwxwsxcwssqqsqsd</p>', 1, 1, 'wxwsxcwssqqsqsd', '0', '1', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(51, 'Qsdqsdqsqsdqs22 Dqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsv', '<p>qsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsvqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsv</p>', 1, 8, 'qsdqsdqsqsdqs22-dqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsqsdqsdqsv', '0', '1', '2024-11-24 07:44:49', '2024-11-24 07:44:49');
 
 -- --------------------------------------------------------
 
@@ -431,7 +447,23 @@ INSERT INTO `item_additional_images` (`id`, `item_id`, `filename`, `created_at`,
 (63, 38, 'Q4B4bEIPe0wLdH03eFtXBdveXpDZSeiTCfn.jpg', '2024-11-20 19:28:22', '2024-11-20 19:28:22'),
 (64, 38, 'FM0gEJRvS4XBp74lrh3sSP6mN2eq5B8O39B.jpg', '2024-11-20 19:28:22', '2024-11-20 19:28:22'),
 (84, 43, 'scQ4S6W8VT6AC1zDWuf275pDrfZuIyX5MST.jpg', '2024-11-21 04:14:06', '2024-11-21 04:14:06'),
-(104, 46, 'HTC1APqTOBn97qY2bLL8FbQEiB3jFyz1xFX.png', '2024-11-23 12:51:59', '2024-11-23 12:51:59');
+(104, 46, 'HTC1APqTOBn97qY2bLL8FbQEiB3jFyz1xFX.png', '2024-11-23 12:51:59', '2024-11-23 12:51:59'),
+(105, 47, 'UkDUgAiCBJXqKRgLDNMXLtp1NYaEkHp7SOM.jpg', '2024-11-24 06:04:48', '2024-11-24 06:04:48'),
+(106, 47, 'bLr391geWoK3culS79mjiKixzDy2c1Ey5kk.jpg', '2024-11-24 06:04:48', '2024-11-24 06:04:48'),
+(107, 48, 'IeuUEKKuI0NkJzK9BjCNZJNjT8sxEGSqTwn.jpg', '2024-11-24 06:34:37', '2024-11-24 06:34:37'),
+(108, 48, 'KsaGgCb2i7VvEMiCzbjpYnAJwKwUkPAapGn.jpg', '2024-11-24 06:34:37', '2024-11-24 06:34:37'),
+(109, 49, 'fEmKLq6l5vhyL9HNQ8oUURTdXSvvrCTEGj3.jpg', '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(110, 49, 's9vwLePUx09LwrBuWbQm8oc9cIOVp8BEsMK.jpg', '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(111, 49, '4LDHgZ8QEPM1NYPYvTEKY00MV4DJRfXPXDq.jpg', '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(112, 49, 'Ag2XFOWBrSBX3f8DTPxmdW631GOFfiIbsZg.jpg', '2024-11-24 06:58:59', '2024-11-24 06:58:59'),
+(113, 50, 'VL8MpAyYr2Pc32f7wPcEf1mgSLYKmUZov3y.jpg', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(114, 50, '3EoDfrqphMkW1uVagRyLsmleOVOqZwrOunP.jpg', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(115, 50, 'xAev06h7TMUC3e86AThcIM1jNKXLXeRDjRm.jpg', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(116, 50, '0Zg6ZID1P0h4embZ2Vgn08MhH8K9pvg8MMy.jpg', '2024-11-24 07:06:26', '2024-11-24 07:06:26'),
+(117, 51, 't7ot8ZdCrHyGma6gQbiWcYZGfji7GgSk1a2.jpg', '2024-11-24 07:44:49', '2024-11-24 07:44:49'),
+(118, 51, 'PI2akdtSf8ADwxEDDADPggLzJTUP113gmaY.jpg', '2024-11-24 07:44:49', '2024-11-24 07:44:49'),
+(119, 51, '38iUewIGDA8Eek04nDhCFOSzVa9fDS66DXt.jpg', '2024-11-24 07:44:49', '2024-11-24 07:44:49'),
+(120, 51, 'miPQE5c42ZWlJxYyLm1EmzaShDelxXXsayX.jpg', '2024-11-24 07:44:49', '2024-11-24 07:44:49');
 
 -- --------------------------------------------------------
 
@@ -521,7 +553,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2024_11_12_220352_create_otps_table', 10),
 (19, '2024_11_18_205450_create_error_pages_table', 11),
 (20, '2024_11_18_220338_create_jobs_table', 12),
-(21, '2024_11_20_102501_create_email_contents_table', 13);
+(21, '2024_11_20_102501_create_email_contents_table', 13),
+(22, '2024_11_24_094048_add_notification_comment_to_users_table', 14);
 
 -- --------------------------------------------------------
 
@@ -918,6 +951,7 @@ CREATE TABLE `users` (
   `name` varchar(150) NOT NULL,
   `email` varchar(150) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
+  `notification_comment` tinyint(1) NOT NULL DEFAULT 1,
   `password` varchar(150) NOT NULL,
   `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -934,14 +968,14 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`, `avatar`, `provider`, `provider_id`, `two_factor_enabled`, `two_factor_code`, `two_factor_code_sent_at`) VALUES
-(1, 'Joris', 'contact@nac.memorial', '2021-06-07 09:47:45', '$2y$10$zANi/PDdllaY/nnZ6AiMseyy88G9V4mdnIy8y7VuZB6bm1HLZPHWS', 'jTcSABhMNF5Snvenjo1jWWXHGjizdad5Ud0bqBdPSSewHQ19UGobDeoHiHzi', '2021-05-27 12:13:50', '2024-11-23 19:28:39', 'Ud4OAXSJOj5ZJUZtsUvXFPpqmGo6U8kzu9q.jpg', NULL, NULL, 0, NULL, NULL),
-(4, 'Jawad Ul Hassan', 'intelligentjawad@gmail.com', NULL, '$2y$10$1pt/omgibMO0cynUOjCsG.ccPX3MtH2P5jFC3gjN3GzsEwEin.FGe', NULL, '2024-09-20 18:23:14', '2024-09-20 18:23:14', NULL, NULL, NULL, 0, NULL, NULL),
-(31, 'Mahmudul Elahi', 'mahmudul.elahi@gmail.com', '2024-11-22 21:31:09', '$2y$10$9fIF3CBLOCpeLrr5wmcCmOvGu6sCuvjmVSJTSoFpb0fosO8fqXEEC', 'kNPJApEvqX7XLVXDsatH5SCPB65Sa85kBJn3acaIBw2ZJdzw793i57JugqcR', '2024-11-12 03:22:42', '2024-11-23 11:52:11', 'https://lh3.googleusercontent.com/a/ACg8ocI3tEUn1_fMod8m3XnLhOoPJDCXUrmVrNFbgV0zibdTXSEvS5c=s96-c', 'google', '106410217763914370311', 0, NULL, NULL),
-(36, 'Mahamudul', 'elahi44888799@gmail.com', '2024-11-21 16:20:21', '$2y$10$GcXK55YT.S6WNebjZiJatO8eSEjdoDs.WRKxKdE7eSatJmNcYanIa', NULL, '2024-11-21 04:10:59', '2024-11-21 16:20:21', 'https://lh3.googleusercontent.com/a/ACg8ocLIwJRTO59Yh-SyAcJaqrITEqNnf6s6fo4B5_FmSB2b7iThTM9I=s96-c', 'google', '116591259589491661822', 0, NULL, NULL),
-(37, 'Mahmudul', 'info.mahmudul.elahi@gmail.com', '2024-11-22 18:34:30', '$2y$10$kiZcy61TLIFWObhQOrkXhu2FWF.fUNtVnOL6fzTMrdvEyg39bF57W', NULL, '2024-11-22 18:34:30', '2024-11-22 18:34:30', 'https://lh3.googleusercontent.com/a/ACg8ocLkTUn7cLZP3H2bk5wJ7i5lNf36Lap6h-SKakrgiYcbLAFVLD4=s96-c', 'google', '114740859085315240686', 0, NULL, NULL),
-(38, 'MahmudulElahi', 'test12@test.com', NULL, '$2y$10$6M8eL1/vi7iBgwyc5BcTpO.rjLoTBEh5/Y8MYbxSFKx1sLw/vmej.', NULL, '2024-11-22 18:50:22', '2024-11-22 18:50:22', NULL, NULL, NULL, 0, NULL, NULL),
-(39, 'Joris', 'wacholderjoris@gmail.com', '2024-11-23 14:38:26', '$2y$10$Ig9TX1Bo/Prc4rYDjTJU/uiw97Pdnve7/gfHm6Ed1JAEWikOW/dDm', NULL, '2024-11-23 14:38:26', '2024-11-23 16:01:52', 'https://graph.facebook.com/v3.3/4946343022126992/picture', 'facebook', '4946343022126992', 0, NULL, NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `notification_comment`, `password`, `remember_token`, `created_at`, `updated_at`, `avatar`, `provider`, `provider_id`, `two_factor_enabled`, `two_factor_code`, `two_factor_code_sent_at`) VALUES
+(1, 'Joris', 'demo@gmail.com', '2021-06-07 09:47:45', 0, '$2y$10$zANi/PDdllaY/nnZ6AiMseyy88G9V4mdnIy8y7VuZB6bm1HLZPHWS', 'jTcSABhMNF5Snvenjo1jWWXHGjizdad5Ud0bqBdPSSewHQ19UGobDeoHiHzi', '2021-05-27 12:13:50', '2024-11-24 08:47:33', NULL, NULL, NULL, 0, NULL, NULL),
+(4, 'Jawad Ul Hassan', 'intelligentjawad@gmail.com', NULL, 1, '$2y$10$1pt/omgibMO0cynUOjCsG.ccPX3MtH2P5jFC3gjN3GzsEwEin.FGe', NULL, '2024-09-20 18:23:14', '2024-09-20 18:23:14', NULL, NULL, NULL, 0, NULL, NULL),
+(31, 'Mahmudul Elahi', 'mahmudul.elahi@gmail.com', '2024-11-22 21:31:09', 1, '$2y$10$9fIF3CBLOCpeLrr5wmcCmOvGu6sCuvjmVSJTSoFpb0fosO8fqXEEC', 'kNPJApEvqX7XLVXDsatH5SCPB65Sa85kBJn3acaIBw2ZJdzw793i57JugqcR', '2024-11-12 03:22:42', '2024-11-23 11:52:11', 'https://lh3.googleusercontent.com/a/ACg8ocI3tEUn1_fMod8m3XnLhOoPJDCXUrmVrNFbgV0zibdTXSEvS5c=s96-c', 'google', '106410217763914370311', 0, NULL, NULL),
+(36, 'Mahamudul', 'elahi44888799@gmail.com', '2024-11-21 16:20:21', 1, '$2y$10$GcXK55YT.S6WNebjZiJatO8eSEjdoDs.WRKxKdE7eSatJmNcYanIa', NULL, '2024-11-21 04:10:59', '2024-11-21 16:20:21', 'https://lh3.googleusercontent.com/a/ACg8ocLIwJRTO59Yh-SyAcJaqrITEqNnf6s6fo4B5_FmSB2b7iThTM9I=s96-c', 'google', '116591259589491661822', 0, NULL, NULL),
+(37, 'Mahmudul', 'info.mahmudul.elahi@gmail.com', '2024-11-22 18:34:30', 1, '$2y$10$kiZcy61TLIFWObhQOrkXhu2FWF.fUNtVnOL6fzTMrdvEyg39bF57W', NULL, '2024-11-22 18:34:30', '2024-11-22 18:34:30', 'https://lh3.googleusercontent.com/a/ACg8ocLkTUn7cLZP3H2bk5wJ7i5lNf36Lap6h-SKakrgiYcbLAFVLD4=s96-c', 'google', '114740859085315240686', 0, NULL, NULL),
+(38, 'MahmudulElahi', 'test12@test.com', NULL, 1, '$2y$10$6M8eL1/vi7iBgwyc5BcTpO.rjLoTBEh5/Y8MYbxSFKx1sLw/vmej.', NULL, '2024-11-22 18:50:22', '2024-11-22 18:50:22', NULL, NULL, NULL, 0, NULL, NULL),
+(39, 'Joris', 'wacholderjoris@gmail.com', '2024-11-23 14:38:26', 1, '$2y$10$Ig9TX1Bo/Prc4rYDjTJU/uiw97Pdnve7/gfHm6Ed1JAEWikOW/dDm', NULL, '2024-11-23 14:38:26', '2024-11-23 16:01:52', 'https://graph.facebook.com/v3.3/4946343022126992/picture', 'facebook', '4946343022126992', 0, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -987,7 +1021,8 @@ INSERT INTO `views` (`id`, `fingerprint`, `item_id`, `page_id`, `created_at`, `u
 (326, 'd95c1b440d29a89d6494557a3908ca87d6d7f48b', 43, NULL, '2024-11-23 16:58:31', '2024-11-23 16:58:31'),
 (327, '7c6df412e9ecf761a24257ad55c8dca3756f6c93', 29, NULL, '2024-11-23 18:48:01', '2024-11-23 18:48:01'),
 (328, 'a7193f58c76bfb0e5fb2d1d2836425f28ce4d0b0', 43, NULL, '2024-11-23 20:21:46', '2024-11-23 20:21:46'),
-(329, 'a7193f58c76bfb0e5fb2d1d2836425f28ce4d0b0', 38, NULL, '2024-11-23 20:27:49', '2024-11-23 20:27:49');
+(329, 'a7193f58c76bfb0e5fb2d1d2836425f28ce4d0b0', 38, NULL, '2024-11-23 20:27:49', '2024-11-23 20:27:49'),
+(330, 'b3d398f171ca80d75d66c9aad20a9da5de28a96f', 49, NULL, '2024-11-24 07:46:18', '2024-11-24 07:46:18');
 
 --
 -- Index pour les tables déchargées
@@ -1242,13 +1277,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
 
 --
 -- AUTO_INCREMENT pour la table `details`
 --
 ALTER TABLE `details`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT pour la table `email_contents`
@@ -1278,19 +1313,19 @@ ALTER TABLE `footer_descriptions`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT pour la table `items`
 --
 ALTER TABLE `items`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT pour la table `item_additional_images`
 --
 ALTER TABLE `item_additional_images`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT pour la table `jobs`
@@ -1314,7 +1349,7 @@ ALTER TABLE `messages`
 -- AUTO_INCREMENT pour la table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT pour la table `otps`
@@ -1386,7 +1421,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `views`
 --
 ALTER TABLE `views`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=330;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=331;
 
 --
 -- Contraintes pour les tables déchargées
