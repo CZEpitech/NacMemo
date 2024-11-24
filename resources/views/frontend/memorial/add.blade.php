@@ -52,7 +52,7 @@
                                                 accept="image/x-png,image/jpeg" onchange="handleMultipleFiles(this)"
                                                 max="5">
                                             <div id="previewContainer"
-                                                style="display: flex; gap: 6px; margin-top: 10px; position: relative; flex-wrap: wrap; cursor: move;">
+                                                style="display: flex; gap: 6px; margin-top: 10px; position: relative; flex-wrap: wrap;">
                                             </div>
                                             @error('additional_images')
                                             <div class="text-danger mt-1">{{ $message }}</div>
@@ -191,31 +191,26 @@
 }
 
 .image-preview img {
-    max-width: 100px;
-    max-height: 100px;
+    width: 60px;
+    height: auto;
     border-radius: 8px;
 }
 
 .image-preview .remove-image {
     position: absolute;
-    top: 2px;
+    top: 0px;
     right: 2px;
-    background: rgba(0);
+    background: transparent;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
     color: red;
 }
 </style>
 
-<!-- Include Sortable.js from CDN -->
-<script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
-
 <script>
 let additionalFiles = [];
 
-// Utility function to generate a unique ID
 function generateUniqueId() {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
@@ -287,23 +282,6 @@ function removeMultipleImage(id) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    const sortable = new Sortable(document.getElementById('previewContainer'), {
-        animation: 150,
-        onEnd: function(evt) {
-            const container = document.getElementById('previewContainer');
-            const newOrder = [];
-            const previews = container.querySelectorAll('.image-preview');
-            previews.forEach(preview => {
-                const id = preview.getAttribute('data-id');
-                const fileObj = additionalFiles.find(item => item.id === id);
-                if (fileObj) {
-                    newOrder.push(fileObj);
-                }
-            });
-            additionalFiles = newOrder;
-        }
-    });
-
     const form = document.getElementById('obituaryForm');
     form.addEventListener('submit', function(e) {
         const input = document.getElementById('customMultipleFile');

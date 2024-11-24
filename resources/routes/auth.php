@@ -75,3 +75,6 @@ Route::post('/confirm-password', [ConfirmablePasswordController::class, 'store']
 Route::post('/logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->middleware('auth')
                 ->name('logout');
+
+
+                Route::post('/account/delete-avatar', [AccountController::class, 'deleteAvatar'])->name('account.deleteAvatar');

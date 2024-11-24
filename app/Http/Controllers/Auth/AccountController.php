@@ -173,4 +173,19 @@ class AccountController extends Controller
             'item' => $item,
         ]);
     }
+
+    public function deleteAvatar(Request $request)
+    {
+        $user = Auth::user();
+    
+        // Ajouter du débogage
+        dd($user, get_class($user));
+    
+        $user->avatar = null;
+        $user->save();
+    
+        return redirect()->route('account')->with('success', 'Avatar supprimé avec succès.');
+    }
+    
+
 }
