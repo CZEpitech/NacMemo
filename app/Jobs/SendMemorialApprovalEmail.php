@@ -1,40 +1,54 @@
 <?php
+namespace App\Notifications;
 
-namespace App\Jobs;
-
-use App\Mail\MemorialApproved;
+use App\Models\EmailContent;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Mail\Mailables\Address;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log;
 
-class SendMemorialApprovalEmail implements ShouldQueue
+class NewCommentNotification extends Notification implements ShouldQueue
 {
-    use Queueable, InteractsWithQueue, SerializesModels;
+    use Queueable;
 
-    protected $memorial;
+    private $memorial;
+    private $comment;
 
-    /**
-     * Create a new job instance.
-     *
-     * @param  \App\Models\Item  $memorial
-     * @return void
-     */
-    public function __construct($memorial)
+    public function __construct($memorial, $comment)
     {
         $this->memorial = $memorial;
+        $this->comment = $comment;
     }
 
-    /**
-     * Execute the job.
-     *
-     * @return void
-     */
-    public function handle()
+    public function via($notifiable)
     {
-        Mail::to($this->memorial->user->email)->send(new MemorialApproved($this->memorial));
+        if ($notifiable->notification_comment) {
+            Log::info('User has notifications enabled.', ['user_id' => $notifiable->id]);
+            return ['mail'];
+        }
+
+        Log::info('User notifications are disabled.', ['user_id' => $notifiable->id]);
+        return [];
+    }
+
+    public function toMail($notifiable)
+    {
+        Log::info("Preparing email for user.", ['user_id' => $notifiable->id]);
+
+        $content = EmailContent::where('key', 'comment_notification')->firstOrFail();
+
+        return (new MailMessage)
+            ->subject($content->subject)
+            ->view(
+                'emails.new-comment-notification',
+                [
+                    'notifiable' => $notifiable,
+                    'memorial' => $this->memorial,
+                    'comment' => $this->comment,
+                    'content' => $content
+                ]
+            );
     }
 }
 

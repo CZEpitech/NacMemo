@@ -48,21 +48,22 @@
                                     <div class="col-lg-12">
 
                                         <div class="row">
+                                            
                                             <div class="col-md-5 mb-4 mx-auto text-center position-relative">
-                                                <img src="{{ asset(Auth::user()->getAvatar()) }}" alt="Avatar"
-                                                    style="height: 70px; width: 70px; border-radius: 50%;"
-                                                    id="avatarImage">
+                                            <div class="image-wrapper position-relative">
+        <img src="{{ asset(Auth::user()->getAvatar()) }}" alt="Avatar"
+        class="avatar-image">
+
+
 
                                                 @if (Auth::user()->avatar)
-                                                <button type="button"
-                                                    class="btn btn-danger btn-sm position-absolute top-0 end-0"
-                                                    onclick="removeAvatar()"
-                                                    style="transform: translate(50%, -50%); border-radius: 50%; width: 24px; height: 24px; padding: 0;"
-                                                    aria-label="Remove Avatar">
-                                                    &times;
-                                                </button>
+                                                @if (auth()->user()->provider === null)
+                                                <button type="button" class="remove-avatar-btn" onclick="removeAvatar()">×</button>
+                                                @endif
                                                 @endif
                                             </div>
+                                            </div>
+
                                         </div>
 
                                         {{-- Champ caché pour indiquer la suppression de l'avatar --}}
@@ -81,7 +82,7 @@
                                                     style="margin-left: auto; color: #FBA8B2;">Select</small>
                                             </label>
                                             <input type="file" id="customSingleFile" name="avatar"
-                                                class="form-control d-none" accept="image/x-png,image/jpeg"
+                                                class="form-control d-none" accept="image/*"
                                                 onchange="previewImages(this)">
 
                                             <div id="singlePreviewContainer"
@@ -242,23 +243,62 @@
 
     </div>
 </section>
+<style>
+
+.image-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 70px;
+}
+
+.avatar-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    border-radius: 50%;
+}
+
+
+
+.remove-avatar-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(255, 77, 79, 0.9);
+    border: none;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.remove-avatar-btn:hover {
+    background-color: rgba(255, 77, 79, 1); 
+    transform: scale(1.1);
+}
+
+</style>
 <script>
 function removeAvatar() {
-    // Définir la valeur du champ caché à true
+    const avatarWrapper = document.querySelector('.image-wrapper');
+    if (avatarWrapper) {
+        avatarWrapper.classList.add('hidden');
+        setTimeout(() => avatarWrapper.style.display = 'none', 300); // Attendre la fin de l'animation
+    }
     document.getElementById('remove_avatar').value = 'true';
-
-    // Masquer l'image de l'avatar
-    const avatarImg = document.getElementById('avatarImage');
-    if (avatarImg) {
-        avatarImg.style.display = 'none';
-    }
-
-    // Masquer le bouton de suppression
-    const crossButton = event.target;
-    if (crossButton) {
-        crossButton.style.display = 'none';
-    }
 }
+
 
 // Optionnel : Prévisualisation de l'avatar sélectionné
 function previewImages(input) {

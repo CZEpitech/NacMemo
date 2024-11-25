@@ -41,7 +41,7 @@
                         @csrf
 
                         <input type="hidden" name="delete_cover_image" id="delete_cover_image" value="0">
-                        <input type="hidden" name="new_order" id="new_order" value="[]">
+                        <!-- <input type="hidden" name="new_order" id="new_order" value="[]"> -->
 
                         <div class="card shadow-sm p-3" style="border-radius: 32px">
                             <div class="card-body">
@@ -63,15 +63,16 @@
                                                             here</small>
                                                     </label>
                                                     <input type="file" id="customSingleFile" name="image"
-                                                        class="form-control d-none" accept="image/x-png,image/jpeg"
+                                                        class="form-control d-none" accept="image/*"
                                                         onchange="previewSingleImage(this)">
-                                                    <div id="singlePreviewContainer"
-                                                        style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
-                                                        <div class="image-preview">
-                                                            <img src="{{ asset($item->getThumb()) }}"
-                                                                style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
-                                                        </div>
-                                                    </div>
+                                                        <div id="singlePreviewContainer" style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
+    <div class="image-preview" id="coverImagePreview">
+        <img src="{{ asset($item->getThumb()) }}"
+            style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
+        <button type="button" class="remove-image" onclick="removeCoverImage()">×</button>
+    </div>
+</div>
+
                                                     @error('image')
                                                     <div class="text-danger mt-1">{{ $message }}</div>
                                                     @enderror
@@ -93,20 +94,18 @@
                                                     </label>
                                                     <input type="file" multiple id="customMultipleFile"
                                                         name="additional_images[]" class="form-control d-none"
-                                                        accept="image/x-png,image/jpeg"
+                                                        accept="image/*"
                                                         onchange="handleMultipleFiles(this)" max="5">
                                                     <div id="previewContainer"
                                                         style="display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap;">
                                                         @foreach ($item->additionalImages as $image)
-                                                        <div class="image-preview" data-id="{{ $image->id }}">
-                                                            <img src="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
-                                                                style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
-                                                            <button type="button" class="remove-image"
-                                                                onclick="removeExistingAdditionalImage('{{ $image->id }}')">×</button>
-                                                            <input type="hidden" name="deleted_additional_images[]"
-                                                                value="{{ $image->id }}">
-                                                        </div>
-                                                        @endforeach
+    <div class="image-preview" data-id="{{ $image->id }}">
+        <img src="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
+            style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
+        <button type="button" class="remove-image"
+            onclick="removeExistingAdditionalImage('{{ $image->id }}')">×</button>
+    </div>
+@endforeach
                                                     </div>
                                                     @error('additional_images')
                                                     <div class="text-danger mt-1">{{ $message }}</div>
@@ -131,20 +130,22 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label required">{{ __('app.description') }}</label>
-                                            <textarea
-                                                class="form-control custom-file-input @error('description') is-invalid @enderror"
-                                                id="editor" cols="5" name="description"
-                                                rows="15">{{ old('description', strip_tags($item->description)) }}</textarea>
-                                            <small class="form-hint">{{ __('app.form_hint_textarea_insert') }}</small>
+    <label class="form-label required">{{ __('app.description') }}</label>
+    <div id="editor-container" style="border: 1px solid #FBA8B2; border-radius: 12px; height: 300px;">
+        {!! old('description', $item->description) !!}
+    </div>
+    <textarea 
+        class="form-control @error('description') is-invalid @enderror" 
+        id="editor" 
+        name="description" 
+        hidden>{{ old('description', $item->description) }}</textarea>
+    <small class="form-hint">{{ __('app.form_hint_textarea_insert') }}</small>
+    @error('description')
+        <div class="text-danger mt-1">{{ $message }}</div>
+    @enderror
+</div>
 
-                                            @error('description')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                            @enderror
 
-                                        </div>
 
                                         <div class="mb-3">
                                             <div class="form-label required">{{ __('app.category') }}</div>
@@ -273,28 +274,48 @@
 </section>
 
 <style>
+    .image-placeholder {
+
+}
 .image-preview {
     position: relative;
     display: inline-block;
 }
 
 .image-preview img {
-    width: 60px;
-    height: auto;
+    width: 40px;
+    height: 40px;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
+
 
 .image-preview .remove-image {
     position: absolute;
-    top: 0px;
-    right: 2px;
-    background: transparent;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4f;
     border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-weight: bold;
-    color: red;
+    font-size: 14px;
+    transition: transform 0.2s, background-color 0.3s;
 }
+
+.image-preview .remove-image:hover {
+    background-color: #ff7875;
+    transform: scale(1.1);
+}
+
 </style>
+
 
 <script>
 let additionalFiles = [];
@@ -303,62 +324,27 @@ function generateUniqueId() {
     return '_' + Math.random().toString(36).substr(2, 9);
 }
 
-function previewSingleImage(input) {
-    const container = document.getElementById('singlePreviewContainer');
-    const countLabel = document.getElementById('singleFileCount');
-
-    container.innerHTML = '';
-
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            container.innerHTML = `
-                <div class="image-preview">
-                    <img src="${e.target.result}" alt="Cover Photo">
-                </div>
-            `;
-            document.getElementById('delete_cover_image').value = '1';
-            countLabel.textContent = '1 selected';
-        }
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        container.innerHTML = `
-            <div class="image-preview">
-                <img src="{{ asset($item->getThumb()) }}"
-                     style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
-            </div>
-        `;
-        document.getElementById('delete_cover_image').value = '0';
-        countLabel.textContent = '0 selected';
-    }
-}
-
-function removeCoverImage() {
-    const input = document.getElementById('customSingleFile');
-    input.value = '';
-    const container = document.getElementById('singlePreviewContainer');
-    container.innerHTML = `
-        <div class="image-preview">
-            <img src="{{ asset($item->getThumb()) }}"
-                 style="width: 40px; height: 40px; object-fit: cover; object-position: center; border-radius: 5px;">
-        </div>
-    `;
-    const countLabel = document.getElementById('singleFileCount');
-    countLabel.textContent = '0 selected';
-    document.getElementById('delete_cover_image').value = '1';
-}
-
 function handleMultipleFiles(input) {
     const existingImages = document.querySelectorAll('#previewContainer .image-preview').length;
-    const remainingSlots = 5 - existingImages - additionalFiles.length;
+    const additionalImagesCount = existingImages + additionalFiles.length;
+    const remainingSlots = 5 - additionalImagesCount;
+    
+    if (remainingSlots <= 0) {
+        alert('Vous avez déjà atteint le nombre maximum de 5 images.');
+        return;
+    }
+    
     const files = Array.from(input.files).slice(0, remainingSlots);
+    
+    if (files.length < input.files.length) {
+        alert(`Vous pouvez ajouter seulement ${remainingSlots} image(s) supplémentaire(s).`);
+    }
+    
     files.forEach(file => {
         const id = generateUniqueId();
-        additionalFiles.push({
-            id,
-            file
-        });
+        additionalFiles.push({ id, file });
     });
+    
     updateMultipleFiles();
     input.value = '';
 }
@@ -390,15 +376,16 @@ function removeExistingAdditionalImage(imageId) {
     const imagePreview = container.querySelector(`.image-preview[data-id="${imageId}"]`);
     if (imagePreview) {
         imagePreview.remove();
-        const hiddenInput = document.querySelector(`input[name="deleted_additional_images[]"][value="${imageId}"]`);
-        if (hiddenInput) {
-            hiddenInput.remove();
-        }
+        // Ajouter un champ caché pour marquer l'image à supprimer
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'deleted_additional_images[]';
+        hiddenInput.value = imageId;
+        document.getElementById('obituaryForm').appendChild(hiddenInput);
     }
-    const countLabel = document.getElementById('multipleFileCount');
-    const currentCount = container.querySelectorAll('.image-preview').length + additionalFiles.length;
-    countLabel.textContent = `${currentCount} selected`;
+    updateCountLabel();
 }
+
 
 function removeNewAdditionalImage(id) {
     additionalFiles = additionalFiles.filter(item => item.id !== id);
@@ -407,6 +394,11 @@ function removeNewAdditionalImage(id) {
     if (imagePreview) {
         imagePreview.remove();
     }
+    updateCountLabel();
+}
+
+function updateCountLabel() {
+    const container = document.getElementById('previewContainer');
     const countLabel = document.getElementById('multipleFileCount');
     const currentCount = container.querySelectorAll('.image-preview').length + additionalFiles.length;
     countLabel.textContent = `${currentCount} selected`;
@@ -415,24 +407,76 @@ function removeNewAdditionalImage(id) {
 document.addEventListener('DOMContentLoaded', function() {
     const form = document.getElementById('obituaryForm');
     form.addEventListener('submit', function(e) {
+        // Ajouter les nouvelles images secondaires au formulaire
         additionalFiles.forEach(item => {
             const input = document.createElement('input');
             input.type = 'file';
-            input.name = 'new_additional_images[]';
+            input.name = 'additional_images[]';
+            input.style.display = 'none'; 
             const dataTransfer = new DataTransfer();
             dataTransfer.items.add(item.file);
             input.files = dataTransfer.files;
             form.appendChild(input);
         });
 
-        const newOrderInput = document.getElementById('new_order');
-        const order = [];
-        const previews = document.querySelectorAll('#previewContainer .image-preview');
-        previews.forEach(preview => {
-            order.push(preview.getAttribute('data-id'));
-        });
-        newOrderInput.value = JSON.stringify(order);
+        // Gérer l'ordre des images si nécessaire
+        // const newOrderInput = document.getElementById('new_order');
+        // const order = [];
+        // const previews = document.querySelectorAll('#previewContainer .image-preview');
+        // previews.forEach(preview => {
+        //     order.push(preview.getAttribute('data-id'));
+        // });
+        // newOrderInput.value = JSON.stringify(order);
     });
 });
+
+function removeCoverImage() {
+    const container = document.getElementById('singlePreviewContainer');
+    container.innerHTML = `
+        <div class="image-placeholder">
+            <span></span>
+        </div>
+    `;
+    const input = document.getElementById('customSingleFile');
+    input.value = ''; // Réinitialise l'input file
+    document.getElementById('delete_cover_image').value = '1'; // Indique qu'il n'y a plus d'image
+    const countLabel = document.getElementById('singleFileCount');
+    countLabel.textContent = '0 selected'; // Met à jour le texte
+}
+
+
+function previewSingleImage(input) {
+    const container = document.getElementById('singlePreviewContainer');
+    const countLabel = document.getElementById('singleFileCount');
+
+    container.innerHTML = '';
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            container.innerHTML = `
+                <div class="image-preview">
+                    <img src="${e.target.result}" alt="Cover Photo">
+                    <button type="button" class="remove-image" onclick="removeCoverImage()">×</button>
+                </div>
+            `;
+            document.getElementById('delete_cover_image').value = '1';
+            countLabel.textContent = '1 selected';
+        }
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        container.innerHTML = `
+            <div class="image-placeholder">
+        
+            </div>
+        `;
+        document.getElementById('delete_cover_image').value = '0';
+        countLabel.textContent = '0 selected';
+    }
+}
+
+
+
+
 </script>
 @endsection

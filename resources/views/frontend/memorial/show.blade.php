@@ -104,7 +104,7 @@
                     $shuffledImages = $item->additionalImages->shuffle();
                     @endphp
 
-                    @if ($shuffledImages->count() > 0 && $shuffledImages->count() < 3) <div class="row">
+                    @if ($shuffledImages->count() > 0 && $shuffledImages->count() < 2) <div class="row">
                         <div class="col-md-12">
                             <div class="blog-images p-4">
                                 <div class="row">
@@ -128,23 +128,23 @@
                 </div>
                 @endif
 
-                @if ($shuffledImages->count() > 2)
+                @if ($shuffledImages->count() > 1)
                 <div class="blog-images">
-                    <div class="blog-images-slider">
-                        @foreach ($shuffledImages as $image)
-                        <div class="blog-images-container">
-                            <img src="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
-                                alt="Details">
-                            <div class="image-overlay">
-                                <a href="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
-                                    data-lightbox="e-1" data-title="{{ $item->title }}">
-                                    <i class="fas fa-search"></i>
-                                </a>
+                                <div class="blog-images-slider">
+                                    @foreach ($shuffledImages  as $image)
+                                        <div class="blog-images-container">
+                                            <img src="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
+                                                alt="Details">
+                                            <div class="image-overlay">
+                                                <a href="{{ asset('img/obituary/' . $item->id . '/additional/' . $image->filename) }}"
+                                                    data-lightbox="e-1" data-title="{{ $item->title }}">
+                                                    <i class="fas fa-search"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
                 @endif
 
                 <div class="row">

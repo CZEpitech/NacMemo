@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Mail\SendOtpMail;
+use Illuminate\Support\Facades\Log;
 
 Route::get('auth/{provider}', function ($provider) {
     return Socialite::driver($provider)->redirect();
@@ -25,11 +26,26 @@ Route::get('auth/{provider}/callback', function (Request $request, $provider) {
 
         $user = User::where('email', $socialUser->getEmail())->first();
 
+        Log::info('Socialite user data:', [
+            'provider' => $provider,
+            'id' => $socialUser->getId(),
+            'name' => $socialUser->getName(),
+            'email' => $socialUser->getEmail(),
+            'avatar' => $socialUser->getAvatar(),
+            'token' => $socialUser->token,
+            'refreshToken' => $socialUser->refreshToken,
+            'expiresIn' => $socialUser->expiresIn,
+        ]);
+
+
+        
+        $avatar = ($provider === 'facebook') ? 'https://nac.memorial/img/avatar/no_avatar.jpg' : $socialUser->getAvatar();
+
         if ($user) {
             $user->update([
                 'provider' => $provider,
                 'provider_id' => $socialUser->getId(),
-                'avatar' => $socialUser->getAvatar(),
+                'avatar' =>  $avatar,
             ]);
         } else {
             $fullName = $socialUser->getName();

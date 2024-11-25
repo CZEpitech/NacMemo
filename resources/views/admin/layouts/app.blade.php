@@ -44,27 +44,10 @@
             color: #252525;
         }
 
-        .tox.tox-tinymce {
-            height: 300px !important;
-        }
+       
 
-        .blog-desc .tox.tox-tinymce {
-            height: 600px !important;
-        }
 
-        .tox-statusbar {
-            display: none !important;
-        }
-
-        .tox-tinymce {
-            border: 1px solid #dadcde !important;
-            border-radius: 4px;
-        }
-
-        .tox .tox-edit-area::before {
-            border: 1px solid transparent !important;
-        }
-
+       
         @media (prefers-color-scheme: dark) {
             .fl-main-container .fl-container.fl-flasher {
                 background-color: rgb(255, 255, 255) !important;
@@ -92,7 +75,6 @@
     <script src="{{ asset('adm/js/tabler.min.js') }}" defer></script>
     <script src="{{ asset('adm/libs/jquery/dist/jquery.min.js') }}"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/@flasher/flasher@1.2.4/dist/flasher.min.js"></script>
-    <script src="https://cdn.tiny.cloud/1/vc9y1hw2e4ll30xels1zg8fnbz0zp643mw1e8q55igd818h1/tinymce/7/tinymce.min.js">
     </script>
 
 
@@ -193,56 +175,7 @@
         });
     </script>
 
-    <script>
-        tinymce.init({
-            selector: '#editor',
-            forced_root_block: false,
-            block_formats: 'Text=text',
-            valid_elements: '*[*]',
-            plugins: 'code emoticons',
-            toolbar: 'undo redo | bold italic | code | alignleft aligncenter alignright | emoticons ',
-            paste_as_text: true,
-            enter: 'br',
-        });
-    </script>
-
-    <script>
-        tinymce.init({
-            selector: '#editorbody',
-            forced_root_block: false,
-            block_formats: 'Text=text',
-            valid_elements: '*[*]',
-            plugins: 'code image imagetools emoticons',
-            toolbar: 'undo redo | bold italic | code | alignleft aligncenter alignright | emoticons | image',
-            paste_as_text: true,
-            enter: 'br',
-            file_picker_types: 'image',
-            file_picker_callback: function(callback, value, meta) {
-                if (meta.filetype === 'image') {
-                    // Create a file input
-                    const input = document.createElement('input');
-                    input.setAttribute('type', 'file');
-                    input.setAttribute('accept', 'image/*');
-
-                    input.onchange = function() {
-                        const file = this.files[0];
-
-                        if (file) {
-                            const reader = new FileReader();
-
-                            reader.onload = function() {
-                                callback(reader.result, {
-                                    alt: file.name
-                                });
-                            };
-                            reader.readAsDataURL(file);
-                        }
-                    };
-                    input.click();
-                }
-            },
-        });
-    </script>
+   
 </body>
 
 </html>

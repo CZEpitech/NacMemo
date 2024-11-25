@@ -152,104 +152,136 @@ class InsertController extends Controller
 
 
     public function update(Request $request, $id, FlasherInterface $flasher)
-    {
-        $validation = $request->validate([
-            'title' => 'required',
-            'description' => 'required|string|min:150',
-            'category' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'additional_images' => 'nullable|array|max:5',
-            'additional_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
-            'sex' => 'required|in:male,female',
-            'birth_date' => 'required|date',
-            'death_date' => 'required|date',
-            'funeral_place' => 'nullable|string|min:1|max:150',
-        ]);
+{
+    $validation = $request->validate([
+        'title' => 'required',
+        'description' => 'required|string|min:150',
+        'category' => 'required|exists:categories,id',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        'additional_images' => 'nullable|array|max:5',
+        'additional_images.*' => 'nullable|image|mimes:jpeg,png,jpg',
+        'deleted_additional_images' => 'nullable|array',
+        'deleted_additional_images.*' => 'nullable|exists:item_additional_images,id',
+        'sex' => 'required|in:male,female',
+        'birth_date' => 'required|date',
+        'death_date' => 'required|date|after_or_equal:birth_date',
+        'funeral_place' => 'nullable|string|min:1|max:150',
+    ]);
 
-        $item = Item::findOrFail($id);
+    $item = Item::findOrFail($id);
 
-        $item->update([
-            'title' => $request->title,
-            'description' => Purify::clean($request->description),
-            'category_id' => $request->category,
-            'slug' => $this->make_slug($request->title),
-            'status' => $this->new_entries,
-            'terms' => 1
-        ]);
+    // Mise à jour des champs principaux
+    $item->update([
+        'title' => $request->title,
+        'description' => Purify::clean($request->description),
+        'category_id' => $request->category,
+        'slug' => $this->make_slug($request->title),
+        'status' => $this->new_entries,
+        'terms' => 1
+    ]);
 
-        $item->details()->updateOrCreate(
-            ['item_id' => $item->id],
-            [
-                'sex' => $request->sex,
-                'birth_date' => $request->birth_date,
-                'death_date' => $request->death_date,
-                'funeral_place' => $request->funeral_place,
-            ]
-        );
+    // Mise à jour ou création des détails
+    $item->details()->updateOrCreate(
+        ['item_id' => $item->id],
+        [
+            'sex' => $request->sex,
+            'birth_date' => $request->birth_date,
+            'death_date' => $request->death_date,
+            'funeral_place' => $request->funeral_place,
+        ]
+    );
 
-        // Only update the main image if a new file is uploaded
-        if ($request->hasFile('image')) {
-            $oldImage = $item->thumb;
+    // Mise à jour de la photo principale si un nouveau fichier est téléchargé
+    if ($request->hasFile('image')) {
+        $oldImage = $item->thumb;
 
-            if ($oldImage) {
-                unlink(public_path('img/obituary/' . $item->id . '/' . $oldImage->filename));
-                $oldImage->delete();
+        if ($oldImage) {
+            $oldFilePath = public_path('img/obituary/' . $item->id . '/' . $oldImage->filename);
+            if (file_exists($oldFilePath)) {
+                unlink($oldFilePath);
             }
-
-            $file = $request->file('image');
-            $name = Str::random(35) . '.' . $file->extension();
-            $file->move(public_path('img/obituary/' . $item->id), $name);
-
-            $item->thumb()->create([
-                'filename' => $name,
-                'imageable_id' => $item->id,
-                'imageable_type' => 'App\Models\Item'
-            ]);
+            $oldImage->delete();
         }
 
-        if ($request->hasFile('additional_images')) {
-            $previousAdditionalImages = ItemAdditionalImage::where('item_id', $item->id)->get();
+        $file = $request->file('image');
+        $name = Str::random(35) . '.' . $file->extension();
+        $file->move(public_path('img/obituary/' . $item->id), $name);
 
-            foreach ($previousAdditionalImages as $oldAdditionalImage) {
-                $oldFilePath = public_path('img/obituary/' . $item->id . '/additional/' . $oldAdditionalImage->filename);
-                if (file_exists($oldFilePath)) {
-                    unlink($oldFilePath);
+        $item->thumb()->create([
+            'filename' => $name,
+            'imageable_id' => $item->id,
+            'imageable_type' => 'App\Models\Item'
+        ]);
+    }
+
+    // Suppression des images secondaires sélectionnées
+    if ($request->has('deleted_additional_images')) {
+        foreach ($request->deleted_additional_images as $imageId) {
+            $image = ItemAdditionalImage::find($imageId);
+            if ($image && $image->item_id == $item->id) {
+                $filePath = public_path('img/obituary/' . $item->id . '/additional/' . $image->filename);
+                if (file_exists($filePath)) {
+                    unlink($filePath);
                 }
-                $oldAdditionalImage->delete();
+                $image->delete();
             }
-
-            foreach ($request->file('additional_images') as $additionalImage) {
-                $additionalImageName = Str::random(35) . '.' . $additionalImage->extension();
-                $additionalImage->move(public_path('img/obituary/' . $item->id . '/additional'), $additionalImageName);
-
-                ItemAdditionalImage::create([
-                    'item_id' => $item->id,
-                    'filename' => $additionalImageName,
-                ]);
-            }
-        }
-
-        if ($item) {
-            $message = (Setting::find('new_entries')->value == 1) ? __('app.success_message_subtitle_1') : __('app.success_message_subtitle_0');
-
-            $successMessage = DB::table('success_messages')
-                ->where('key', 'memorial_post_updated')
-                ->value('message');
-
-            $flasher->addInfo($successMessage, 'Updated!', [
-                'position' => 'top-center',
-                'timer' => 5000,
-                'icon' => 'check-circle'
-            ]);
-
-            return redirect()->route('my-memorial');
-        } else {
-            $flasher->addError(__('app.error_message'), 'Error!', [
-                'position' => 'top-center',
-                'timer' => 5000,
-                'icon' => 'check-circle'
-            ]);
-            return back();
         }
     }
+
+    // Ajout de nouvelles images secondaires
+    if ($request->hasFile('additional_images')) {
+        $existingAdditionalImagesCount = ItemAdditionalImage::where('item_id', $item->id)->count();
+        $newImagesCount = count($request->file('additional_images'));
+        $allowedImages = 5 - $existingAdditionalImagesCount;
+
+        if ($newImagesCount > $allowedImages) {
+            return back()->withErrors(['additional_images' => 'Vous ne pouvez ajouter que ' . $allowedImages . ' image(s) supplémentaire(s).'])->withInput();
+        }
+
+        foreach ($request->file('additional_images') as $additionalImage) {
+            $additionalImageName = Str::random(35) . '.' . $additionalImage->extension();
+            $additionalImage->move(public_path('img/obituary/' . $item->id . '/additional'), $additionalImageName);
+
+            ItemAdditionalImage::create([
+                'item_id' => $item->id,
+                'filename' => $additionalImageName,
+            ]);
+        }
+    }
+
+    // Gestion de l'ordre des images si nécessaire
+    // if ($request->new_order) {
+    //     $order = json_decode($request->new_order, true);
+    //     foreach ($order as $index => $imageId) {
+    //         $image = ItemAdditionalImage::find($imageId);
+    //         if ($image && $image->item_id == $item->id) {
+    //             $image->order = $index;
+    //             $image->save();
+    //         }
+    //     }
+    // }
+
+    // Messages de succès ou d'erreur
+    if ($item) {
+        $successMessage = DB::table('success_messages')
+            ->where('key', 'memorial_post_updated')
+            ->value('message');
+
+        $flasher->addInfo($successMessage, 'Updated!', [
+            'position' => 'top-center',
+            'timer' => 5000,
+            'icon' => 'check-circle'
+        ]);
+
+        return redirect()->route('my-memorial');
+    } else {
+        $flasher->addError(__('app.error_message'), 'Error!', [
+            'position' => 'top-center',
+            'timer' => 5000,
+            'icon' => 'check-circle'
+        ]);
+        return back();
+    }
+}
+
 }

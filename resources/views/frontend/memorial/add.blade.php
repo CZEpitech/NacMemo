@@ -24,7 +24,7 @@
                                                     selected</small>
                                             </label>
                                             <input type="file" id="customSingleFile" name="image"
-                                                class="form-control d-none" accept="image/x-png,image/jpeg"
+                                                class="form-control d-none" accept="image/*"
                                                 onchange="previewSingleImage(this)">
                                             <div id="singlePreviewContainer"
                                                 style="display: flex; gap: 6px; margin-top: 10px; position: relative; flex-wrap: wrap;">
@@ -49,7 +49,7 @@
                                             </label>
                                             <input type="file" multiple id="customMultipleFile"
                                                 name="additional_images[]" class="form-control d-none"
-                                                accept="image/x-png,image/jpeg" onchange="handleMultipleFiles(this)"
+                                                accept="image/*" onchange="handleMultipleFiles(this)"
                                                 max="5">
                                             <div id="previewContainer"
                                                 style="display: flex; gap: 6px; margin-top: 10px; position: relative; flex-wrap: wrap;">
@@ -73,16 +73,20 @@
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label required">{{ __('app.description') }}</label>
-                                    <textarea
-                                        class="form-control custom-file-input @error('description') is-invalid @enderror"
-                                        id="editor" cols="5" name="description"
-                                        rows="15">{{ old('description') }}</textarea>
+                                <label class="form-label required">{{ __('app.description') }}</label>
+                                    <div id="editor-container" style="border: 1px solid #FBA8B2; border-radius: 12px; height: 300px;"></div>
+                                    <textarea 
+                                    class="form-control @error('description') is-invalid @enderror" 
+                                    id="editor" 
+                                    name="description" 
+                                    hidden>{{ old('description') }}</textarea>
                                     <small class="form-hint">{{ __('app.form_hint_textarea_insert') }}</small>
-                                    @error('description')
+                                @error('description')
                                     <div class="text-danger mt-1">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @enderror
+                            </div>
+
+
 
                                 <div class="mb-3">
                                     <div class="form-label required">{{ __('app.category') }}</div>
@@ -192,21 +196,38 @@
 
 .image-preview img {
     width: 60px;
-    height: auto;
+    height: 60px;
     border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
 }
+
 
 .image-preview .remove-image {
     position: absolute;
-    top: 0px;
-    right: 2px;
-    background: transparent;
+    top: -5px;
+    right: -5px;
+    background-color: #ff4d4f;
     border: none;
+    color: #fff;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-weight: bold;
-    color: red;
+    font-size: 14px;
+    transition: transform 0.2s, background-color 0.3s;
 }
+
+.image-preview .remove-image:hover {
+    background-color: #ff7875;
+    transform: scale(1.1);
+}
+
 </style>
+
 
 <script>
 let additionalFiles = [];

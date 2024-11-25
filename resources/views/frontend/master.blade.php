@@ -154,15 +154,49 @@
         Script-Section-Start
   =======================================-->
 
+<!-- Include Quill.js -->
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<style>
+    .ql-toolbar.ql-snow{
+        border: 0px !important;
+    }
+    </style>
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
 
+<!-- Include Quill Emoji Plugin -->
+<link href="https://cdn.jsdelivr.net/npm/quill-emoji/dist/quill-emoji.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/quill-emoji/dist/quill-emoji.min.js"></script>
+
+<script>
+    // Initialize Quill Editor
+    var quill = new Quill('#editor-container', {
+        theme: 'snow',
+        modules: {
+            toolbar: [
+                [{ 'header': [1, 2, false] }],
+                ['bold', 'italic', 'underline'],
+                ['emoji'], // Add emoji button to toolbar
+                [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+                ['clean'] // Clear formatting
+            ],
+            'emoji-toolbar': true,
+            'emoji-textarea': false,
+            'emoji-shortname': true
+        }
+    });
+
+    // Sync Quill content to hidden textarea
+    quill.on('text-change', function () {
+        document.querySelector('#editor').value = quill.root.innerHTML;
+    });
+</script>
 
     <script src="{{ asset('assets/frontend/js/jquery-1.12.4.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/popper.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/bootstrap.bundle.min.js') }}"></script>
 
     <script src="{{ asset('assets/frontend/lib/lightbox/dist/js/lightbox.js') }}"></script>
-    <script src="https://cdn.tiny.cloud/1/vc9y1hw2e4ll30xels1zg8fnbz0zp643mw1e8q55igd818h1/tinymce/7/tinymce.min.js"
-        referrerpolicy="origin"></script>
+
     <script src="{{ asset('assets/frontend/js/slick.min.js') }}"></script>
     <script src="{{ asset('assets/frontend/js/script.js') }}"></script>
     {!! NoCaptcha::renderJs() !!}

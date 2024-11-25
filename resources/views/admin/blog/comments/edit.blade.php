@@ -35,16 +35,21 @@
                                     <div class="col-lg-6">
                                         <!-- Content -->
                                         <div class="mb-3">
+                                           
+
                                             <label class="form-label required">{{ __('Content') }}</label>
-                                            <textarea class="form-control @error('comment') is-invalid @enderror" id="editor" name="comment" rows="3">{{ !empty(old('comment')) ? old('comment') : $comment->comment }}</textarea>
+                                            <div id="editor-container" style="border: 1px solid #FBA8B2; border-radius: 12px; height: 300px;"></div>
+                                            <textarea 
+                                            class="form-control @error('comment') is-invalid @enderror" 
+                                            id="editor" 
+                                            name="comment" 
+                                            hidden>{{ old('comment') }}</textarea>
+                                            <small class="form-hint">{{ __('app.form_hint_textarea_insert') }}</small>
+                                        @error('comment')
+                                            <div class="text-danger mt-1">{{ $message }}</div>
+                                        @enderror
 
-                                            @error('comment')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-
-                                        </div>
+                                                </div>
 
                                         <div class="mb-3">
                                             <div class="form-label required">{{ __('Status') }}</div>

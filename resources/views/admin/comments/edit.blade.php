@@ -2,7 +2,6 @@
 @section('content')
 
 <div class="container-xl">
-    <!-- Page title -->
     <div class="page-header d-print-none">
         <div class="row align-items-center">
             <div class="col">
@@ -13,10 +12,8 @@
                     {{__('Take control of your web application.')}}
                 </span>
             </div>
-            <!-- Page title actions -->
             <div class="col-auto ms-auto d-print-none">
                 <div class="btn-list">
-                    
                 </div>
             </div>
         </div>
@@ -29,64 +26,78 @@
             <div class="col">  
                 <form action="{{ route('admin.comment.update') }}" method="POST">
                     @csrf
-                    <!-- Form -->
                     <div class="card card-md rounded-3 shadow">
                         <div class="card-body">
-                            
                             <div class="row">
                                 <div class="col-lg-6">
-
-                                    <!-- Content -->
                                     <div class="mb-3">
                                         <label class="form-label required">{{__('Content')}}</label>
+                                        <div id="editor-container" style="border: 1px solid #ced4da; border-radius: 6px; height: 300px;"></div>
                                         <textarea class="form-control @error('content') is-invalid @enderror" 
- name="content" rows="3">{{ !empty(old('content')) ? old('content') : $comment->content }}</textarea>
-
+                                            id="editor" 
+                                            name="content" 
+                                            hidden>{{ old('content', $comment->content) }}</textarea>
                                         @error('content')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    
                                     </div>
-
                                     <div class="mb-3">
                                         <div class="form-label required">{{__('Status')}}</div>
-                
                                         <label class="form-check form-switch mt-2">
                                             <input type="hidden" name="status" value="0">
                                             <input class="form-check-input @error('status') is-invalid @enderror" type="checkbox" value="1" name="status" {{ old('status', $comment->status) == '1' ? 'checked="checked"' : '' }}>
                                         </label>
-
                                         @error('status')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-
                                     </div>
-
-
-                                
                                 </div>
                             </div>
                         </div>
-
                         <div class="card-footer text-end">
                             <div class="d-flex">
-                                <!-- hidden input -->
                                 <input type="hidden" name="id" value="{{ $comment->id }}">
-
                                 <a href="{{ route('admin.comments') }}" class="btn btn-link">{{__('app.cancel')}}</a>
                                 <button type="submit" class="btn btn-blue ms-auto">{{__('app.update')}}</button>
                             </div>
                         </div>
-
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Quill.js Integration -->
+<link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var quill = new Quill('#editor-container', {
+            theme: 'snow',
+            placeholder: '{{ __("Type your content here...") }}',
+            modules: {
+                toolbar: [
+                    [{ header: [1, 2, false] }],
+                    ['bold', 'italic', 'underline'],
+                    ['link', 'blockquote', 'code-block', 'image'],
+                    [{ list: 'ordered' }, { list: 'bullet' }]
+                ]
+            }
+        });
+
+        var textarea = document.getElementById('editor');
+        quill.root.innerHTML = textarea.value;
+
+        var form = document.querySelector('form');
+        form.onsubmit = function () {
+            textarea.value = quill.root.innerHTML;
+        };
+    });
+</script>
 
 @endsection

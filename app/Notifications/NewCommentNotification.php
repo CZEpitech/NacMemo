@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Log; // Import Log facade
 
 class NewCommentNotification extends Notification implements ShouldQueue
 {
@@ -28,6 +29,7 @@ class NewCommentNotification extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
+        Log::info("test");
 
         $content = EmailContent::where('key', 'comment_notification')->firstOrFail();
 
