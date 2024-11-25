@@ -11,6 +11,7 @@ use App\Http\Controllers\InsertController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Cookie;
+use App\Http\Controllers\LogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,10 +36,14 @@ Route::match(['get', 'post'], '/command/{secret}', function ($secret) {
     require_once '../command.php';
 });
 
+
+
+
 Route::get('/', [HomeController::class, 'index'])->name('index');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/terms', [HomeController::class, 'terms'])->name('terms');
 Route::get('/page/{id}/{slug}', [PageController::class, 'show'])->name('page.show');
+Route::get('/logs', [LogController::class, 'index'])->name('logs.index');
 
 // Theme (Light/Dark)
 Route::post('/themes', function (Request $request) {
@@ -102,6 +107,9 @@ Route::get('/search', [HomeController::class, 'search'])->name('search');
 // Contact
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+
+
+
 
 require __DIR__ . '/social.php';
 require __DIR__ . '/auth.php';
