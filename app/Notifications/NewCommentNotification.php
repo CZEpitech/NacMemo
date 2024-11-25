@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\Log; // Import Log facade
+use Illuminate\Support\Facades\Log;
 
 class NewCommentNotification extends Notification implements ShouldQueue
 {
@@ -22,14 +22,26 @@ class NewCommentNotification extends Notification implements ShouldQueue
         $this->comment = $comment;
     }
 
+    /**
+     * Détermine les canaux de notification utilisés.
+     * Cette méthode renvoie un tableau vide si le champ notification_comment est désactivé.
+     */
     public function via($notifiable)
     {
-        return ['mail'];
+        if ($notifiable->notification_comment !== 1) {
+            Log::info("Notification non envoyée : l'utilisateur {$notifiable->id} a désactivé les notifications.");
+            return []; // Ne pas envoyer la notification
+        }
+
+        return ['mail']; // Envoyer par email
     }
 
+    /**
+     * Construction de l'email de notification.
+     */
     public function toMail($notifiable)
     {
-        Log::info("test");
+        Log::info("Préparation de l'email pour l'utilisateur {$notifiable->id}.");
 
         $content = EmailContent::where('key', 'comment_notification')->firstOrFail();
 
@@ -41,7 +53,7 @@ class NewCommentNotification extends Notification implements ShouldQueue
                     'notifiable' => $notifiable,
                     'memorial' => $this->memorial,
                     'comment' => $this->comment,
-                    'content' => $content
+                    'content' => $content,
                 ]
             );
     }
